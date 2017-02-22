@@ -624,6 +624,9 @@ void SITL_State::_sbp_send_message(uint16_t msg_type, uint16_t sender_id, uint8_
 
 void SITL_State::_update_gps_sbp(const struct gps_data *d)
 {
+    struct sbp_heartbeat_t {
+        uint32_t flags; //< Status flags (reserved)
+    } hb;
     struct PACKED sbp_gps_time_t {
         uint16_t wn;   //< GPS week number
         uint32_t tow;  //< GPS Time of Week rounded to the nearest ms
@@ -717,10 +720,9 @@ void SITL_State::_update_gps_sbp(const struct gps_data *d)
         _sbp_send_message(SBP_DOPS_MSGTYPE, 0x2222, sizeof(dops),
                           (uint8_t*)&dops);
 
-        uint32_t system_flags = 0;
-        _sbp_send_message(SBP_HEARTBEAT_MSGTYPE, 0x2222,
-                          sizeof(system_flags),
-                          (uint8_t*)&system_flags);
+        hb.flags = 0;
+        _sbp_send_message(SBP_HEARTBEAT_MSGTYPE, 0x2222, sizeof(hb),
+                          (uint8_t*)&hb);
 
     }
     do_every_count++;
