@@ -663,7 +663,7 @@ void SITL_State::_update_gps_sbp(const struct gps_data *d)
     } dops;
 
     static const uint16_t SBP_HEARTBEAT_MSGTYPE = 0xFFFF;
-    static const uint16_t SBP_GPS_TIME_MSGTYPE = 0x0100;
+    static const uint16_t SBP_GPS_TIME_MSGTYPE = 0x0102;
     static const uint16_t SBP_DOPS_MSGTYPE = 0x0206;
     static const uint16_t SBP_POS_LLH_MSGTYPE = 0x0201;
     static const uint16_t SBP_VEL_NED_MSGTYPE = 0x0205;

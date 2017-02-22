@@ -66,7 +66,7 @@ private:
     //Message types supported by this driver
     static const uint16_t SBP_STARTUP_MSGTYPE        = 0xFF00;    
     static const uint16_t SBP_HEARTBEAT_MSGTYPE      = 0xFFFF;    
-    static const uint16_t SBP_GPS_TIME_MSGTYPE       = 0x0100;
+    static const uint16_t SBP_GPS_TIME_MSGTYPE       = 0x0102;
     static const uint16_t SBP_DOPS_MSGTYPE           = 0x0206;
     static const uint16_t SBP_POS_ECEF_MSGTYPE       = 0x0200;
     static const uint16_t SBP_POS_LLH_MSGTYPE        = 0x0201;
@@ -83,12 +83,12 @@ private:
         uint8_t cause;        //< Cause of startup
         uint8_t startup_type; //< Startup type
         uint16_t reserved;    //< Reserved for future use
-    }
+    } // 4 bytes
 
     // Heartbeat
     struct sbp_heartbeat_t {
         uint32_t flags; //< Status flags (reserved)
-    };
+    }; // 4 bytes
 
     // GPS Time
     struct PACKED sbp_gps_time_t {
