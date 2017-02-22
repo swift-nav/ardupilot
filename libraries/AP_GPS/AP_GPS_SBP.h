@@ -146,7 +146,7 @@ private:
     // ************************************************************************
     // Internal Received Messages State
     // ************************************************************************
-    uint32_t last_heatbeat_received_ms;
+    uint32_t last_heartbeat_received_ms;
     uint32_t last_injected_data_ms;
 
     struct sbp_gps_time_t last_gps_time;

@@ -29,7 +29,7 @@ extern const AP_HAL::HAL& hal;
 #define SBP_DEBUGGING 1
 #define SBP_HW_LOGGING 1
 
-#define SBP_TIMEOUT_HEATBEAT  4000
+#define SBP_TIMEOUT_HEARTBEAT  4000
 #define SBP_TIMEOUT_PVT       500
 
 #if SBP_DEBUGGING
@@ -62,7 +62,7 @@ AP_GPS_SBP::AP_GPS_SBP(AP_GPS &_gps, AP_GPS::GPS_State &_state,
     //Externally visible state
     state.status = AP_GPS::NO_FIX;
     state.have_vertical_velocity = true;
-    state.last_gps_time_ms = last_heatbeat_received_ms = AP_HAL::millis();
+    state.last_gps_time_ms = last_heartbeat_received_ms = AP_HAL::millis();
 
 }
 
@@ -184,7 +184,7 @@ void
 AP_GPS_SBP::_sbp_process_message() {
     switch(parser_state.msg_type) {
         case SBP_HEARTBEAT_MSGTYPE:
-            last_heatbeat_received_ms = AP_HAL::millis();
+            last_heartbeat_received_ms = AP_HAL::millis();
             break;
 
         case SBP_GPS_TIME_MSGTYPE:
@@ -243,7 +243,7 @@ AP_GPS_SBP::_attempt_state_update()
     uint32_t now = AP_HAL::millis();
     bool ret = false;
 
-    if (now - last_heatbeat_received_ms > SBP_TIMEOUT_HEATBEAT) {
+    if (now - last_heartbeat_received_ms > SBP_TIMEOUT_HEARTBEAT) {
         
         state.status = AP_GPS::NO_GPS;
         Debug("No Heartbeats from Piksi! Driver Ready to Die!");
