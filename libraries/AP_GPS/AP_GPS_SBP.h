@@ -78,6 +78,13 @@ private:
     static const uint16_t SBP_IAR_STATE_MSGTYPE      = 0x0019;
     
 
+    // Startup message payload
+    struct PACKED sbp_startup_t {
+        uint8_t cause;        //< Cause of startup
+        uint8_t startup_type; //< Startup type
+        uint16_t reserved;    //< Reserved for future use
+    }
+
     // GPS Time
     struct PACKED sbp_gps_time_t {
         uint16_t wn;     //< GPS week number (unit: weeks)
