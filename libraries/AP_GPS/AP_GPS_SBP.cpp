@@ -187,15 +187,16 @@ AP_GPS_SBP::_sbp_process_message() {
             last_heartbeat_received_ms = AP_HAL::millis();
             break;
 
-        case SBP_GPS_TIME_MSGTYPE:
+        case SBP_GPS_TIME_MSGTYPE: {
             struct sbp_gps_time_t *gps_time = (struct sbp_gps_time_t*)parser_state.msg_buff;
             if (gps_time->flags == 1) {
                 // flags = 1: Time source is GNSS PVT solution
                 last_gps_time = *gps_time;
             } // flags = 0: No Fix
             break;
+        }
 
-        case SBP_VEL_NED_MSGTYPE:
+        case SBP_VEL_NED_MSGTYPE: {
             struct sbp_vel_ned_t *vel_ned = (struct sbp_vel_ned_t*)parser_state.msg_buff;
             if (vel_ned->flags == 1 ||
                 vel_ned->flags == 2) {
@@ -204,6 +205,7 @@ AP_GPS_SBP::_sbp_process_message() {
                 last_vel_ned = *vel_ned;
             } // flags = 0: No Fix
             break;
+        }
 
         case SBP_POS_LLH_MSGTYPE: {
             struct sbp_pos_llh_t *pos_llh = (struct sbp_pos_llh_t*)parser_state.msg_buff;
@@ -222,7 +224,7 @@ AP_GPS_SBP::_sbp_process_message() {
             break;
         }
 
-        case SBP_DOPS_MSGTYPE:
+        case SBP_DOPS_MSGTYPE: {
             struct sbp_dops_t *dops = (struct sbp_dops_t*)parser_state.msg_buff;
             if (dops->flags == 1 ||
                 dops->flags == 2 ||
@@ -235,6 +237,7 @@ AP_GPS_SBP::_sbp_process_message() {
                 last_dops = *dops;
             } // flags = 0: No Fix
             break;
+        }
 
         case SBP_TRACKING_STATE_MSGTYPE:
             //INTENTIONALLY BLANK
