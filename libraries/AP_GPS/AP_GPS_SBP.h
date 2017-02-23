@@ -70,7 +70,7 @@ private:
     static const uint16_t SBP_DOPS_MSGTYPE           = 0x0208;
     static const uint16_t SBP_POS_ECEF_MSGTYPE       = 0x0209;
     static const uint16_t SBP_POS_LLH_MSGTYPE        = 0x020A;
-    static const uint16_t SBP_BASELINE_ECEF_MSGTYPE  = 0x0202;
+    static const uint16_t SBP_BASELINE_ECEF_MSGTYPE  = 0x020B;
     static const uint16_t SBP_BASELINE_NED_MSGTYPE   = 0x0203;
     static const uint16_t SBP_VEL_ECEF_MSGTYPE       = 0x0204;
     static const uint16_t SBP_VEL_NED_MSGTYPE        = 0x0205;
