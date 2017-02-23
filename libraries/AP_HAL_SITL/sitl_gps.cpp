@@ -666,7 +666,7 @@ void SITL_State::_update_gps_sbp(const struct gps_data *d)
     static const uint16_t SBP_HEARTBEAT_MSGTYPE = 0xFFFF;
     static const uint16_t SBP_GPS_TIME_MSGTYPE = 0x0102;
     static const uint16_t SBP_DOPS_MSGTYPE = 0x0208;
-    static const uint16_t SBP_POS_LLH_MSGTYPE = 0x0201;
+    static const uint16_t SBP_POS_LLH_MSGTYPE = 0x020A;
     static const uint16_t SBP_VEL_NED_MSGTYPE = 0x0205;
 
     uint16_t time_week;
@@ -693,10 +693,10 @@ void SITL_State::_update_gps_sbp(const struct gps_data *d)
     pos.n_sats = _sitl->gps_numsats;
 
     // Send single point position solution
-    pos.flags = 0;
+    pos.flags = 1;
     _sbp_send_message(SBP_POS_LLH_MSGTYPE, 0x2222, sizeof(pos), (uint8_t*)&pos);
     // Send "pseudo-absolute" RTK position solution
-    pos.flags = 1;
+    pos.flags = 4;
     _sbp_send_message(SBP_POS_LLH_MSGTYPE, 0x2222, sizeof(pos), (uint8_t*)&pos);
 
     velned.tow = time_week_ms;

@@ -197,13 +197,18 @@ AP_GPS_SBP::_sbp_process_message() {
 
         case SBP_POS_LLH_MSGTYPE: {
             struct sbp_pos_llh_t *pos_llh = (struct sbp_pos_llh_t*)parser_state.msg_buff;
-            // Check if this is a single point or RTK solution
-            // flags = 0 -> single point
-            if (pos_llh->flags == 0) {
+            // Check solution type.
+            if (pos_llh->flags == 1) {
+                // flag = 1: Single Point Solution
                 last_pos_llh_spp = *pos_llh;
-            } else if (pos_llh->flags == 1 || pos_llh->flags == 2) {
+            } else if (pos_llh->flags == 2 ||
+                       pos_llh->flags == 3 ||
+                       pos_llh->flags == 4) {
+                // flag = 2: Differential Code Phase
+                //        3: Float RTK
+                //        4: Fixed RTK
                 last_pos_llh_rtk = *pos_llh;
-            }
+            } // flag = 0: No Fix
             break;
         }
 
@@ -280,11 +285,11 @@ AP_GPS_SBP::_attempt_state_update()
         state.location.alt      = (int32_t) (pos_llh->height*1e2);
         state.num_sats          = pos_llh->n_sats;
 
-        if (pos_llh->flags == 0)
+        if (pos_llh->flags == 1)
             state.status = AP_GPS::GPS_OK_FIX_3D;
-        else if (pos_llh->flags == 2)
+        else if (pos_llh->flags == 2 || pos_llh->flags == 3)
             state.status = AP_GPS::GPS_OK_FIX_3D_DGPS;
-        else if (pos_llh->flags == 1)
+        else if (pos_llh->flags == 4)
             state.status = AP_GPS::GPS_OK_FIX_3D_RTK;
         
 
