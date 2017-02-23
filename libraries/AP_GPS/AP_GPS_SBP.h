@@ -63,7 +63,7 @@ private:
 
     static const uint8_t SBP_PREAMBLE = 0x55;
     
-    //Message types supported by this driver
+    // Message types supported by this driver
     static const uint16_t SBP_STARTUP_MSGTYPE        = 0xFF00;    
     static const uint16_t SBP_HEARTBEAT_MSGTYPE      = 0xFFFF;    
     static const uint16_t SBP_GPS_TIME_MSGTYPE       = 0x0102;
@@ -72,7 +72,7 @@ private:
     static const uint16_t SBP_POS_LLH_MSGTYPE        = 0x020A;
     static const uint16_t SBP_BASELINE_ECEF_MSGTYPE  = 0x020B;
     static const uint16_t SBP_BASELINE_NED_MSGTYPE   = 0x020C;
-    static const uint16_t SBP_VEL_ECEF_MSGTYPE       = 0x0204;
+    static const uint16_t SBP_VEL_ECEF_MSGTYPE       = 0x020D;
     static const uint16_t SBP_VEL_NED_MSGTYPE        = 0x0205;
     static const uint16_t SBP_TRACKING_STATE_MSGTYPE = 0x0016;
     static const uint16_t SBP_IAR_STATE_MSGTYPE      = 0x0019;
