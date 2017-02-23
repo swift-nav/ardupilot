@@ -83,7 +83,7 @@ private:
         uint8_t cause;        //< Cause of startup
         uint8_t startup_type; //< Startup type
         uint16_t reserved;    //< Reserved for future use
-    } // 4 bytes
+    }; // 4 bytes
 
     // Heartbeat
     struct sbp_heartbeat_t {
