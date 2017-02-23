@@ -660,11 +660,12 @@ void SITL_State::_update_gps_sbp(const struct gps_data *d)
         uint16_t tdop; //< Time Dilution of Precision
         uint16_t hdop; //< Horizontal Dilution of Precision
         uint16_t vdop; //< Vertical Dilution of Precision
+        uint8_t flags; //< Status flags (reserved)
     } dops;
 
     static const uint16_t SBP_HEARTBEAT_MSGTYPE = 0xFFFF;
     static const uint16_t SBP_GPS_TIME_MSGTYPE = 0x0102;
-    static const uint16_t SBP_DOPS_MSGTYPE = 0x0206;
+    static const uint16_t SBP_DOPS_MSGTYPE = 0x0208;
     static const uint16_t SBP_POS_LLH_MSGTYPE = 0x0201;
     static const uint16_t SBP_VEL_NED_MSGTYPE = 0x0205;
 
@@ -717,6 +718,7 @@ void SITL_State::_update_gps_sbp(const struct gps_data *d)
         dops.tdop = 1;
         dops.hdop = 100;
         dops.vdop = 1;
+        dops.flags = 0;
         _sbp_send_message(SBP_DOPS_MSGTYPE, 0x2222, sizeof(dops),
                           (uint8_t*)&dops);
 

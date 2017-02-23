@@ -67,7 +67,7 @@ private:
     static const uint16_t SBP_STARTUP_MSGTYPE        = 0xFF00;    
     static const uint16_t SBP_HEARTBEAT_MSGTYPE      = 0xFFFF;    
     static const uint16_t SBP_GPS_TIME_MSGTYPE       = 0x0102;
-    static const uint16_t SBP_DOPS_MSGTYPE           = 0x0206;
+    static const uint16_t SBP_DOPS_MSGTYPE           = 0x0208;
     static const uint16_t SBP_POS_ECEF_MSGTYPE       = 0x0200;
     static const uint16_t SBP_POS_LLH_MSGTYPE        = 0x0201;
     static const uint16_t SBP_BASELINE_ECEF_MSGTYPE  = 0x0202;
@@ -106,7 +106,8 @@ private:
         uint16_t tdop;   //< Time Dilution of Precision (unit: 0.01)
         uint16_t hdop;   //< Horizontal Dilution of Precision (unit: 0.01)
         uint16_t vdop;   //< Vertical Dilution of Precision (unit: 0.01)
-    }; // 14 bytes
+        uint8_t flags;   //< Status flags (reserved)
+    }; // 15 bytes
 
     // Geodetic position solution.
     struct PACKED sbp_pos_llh_t {
