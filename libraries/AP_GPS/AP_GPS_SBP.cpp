@@ -196,7 +196,13 @@ AP_GPS_SBP::_sbp_process_message() {
             break;
 
         case SBP_VEL_NED_MSGTYPE:
-            memcpy(&last_vel_ned, parser_state.msg_buff, sizeof(last_vel_ned));
+            struct sbp_vel_ned_t *vel_ned = (struct sbp_vel_ned_t*)parser_state.msg_buff;
+            if (vel_ned->flags == 1 ||
+                vel_ned->flags == 2) {
+                // flags = 1: Measured Doppler derived
+                //         2: Computed Doppler derived
+                last_vel_ned = *vel_ned;
+            } // flags = 0: No Fix
             break;
 
         case SBP_POS_LLH_MSGTYPE: {
@@ -209,8 +215,8 @@ AP_GPS_SBP::_sbp_process_message() {
                        pos_llh->flags == 3 ||
                        pos_llh->flags == 4) {
                 // flags = 2: Differential Code Phase
-                //        3: Float RTK
-                //        4: Fixed RTK
+                //         3: Float RTK
+                //         4: Fixed RTK
                 last_pos_llh_rtk = *pos_llh;
             } // flags = 0: No Fix
             break;

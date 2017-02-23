@@ -706,7 +706,7 @@ void SITL_State::_update_gps_sbp(const struct gps_data *d)
     velned.h_accuracy = 5e3;
     velned.v_accuracy = 5e3;
     velned.n_sats = _sitl->gps_numsats;
-    velned.flags = 0;
+    velned.flags = 1;
     _sbp_send_message(SBP_VEL_NED_MSGTYPE, 0x2222, sizeof(velned), (uint8_t*)&velned);
 
     static uint32_t do_every_count = 0;
