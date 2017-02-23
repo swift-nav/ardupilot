@@ -667,7 +667,7 @@ void SITL_State::_update_gps_sbp(const struct gps_data *d)
     static const uint16_t SBP_GPS_TIME_MSGTYPE = 0x0102;
     static const uint16_t SBP_DOPS_MSGTYPE = 0x0208;
     static const uint16_t SBP_POS_LLH_MSGTYPE = 0x020A;
-    static const uint16_t SBP_VEL_NED_MSGTYPE = 0x0205;
+    static const uint16_t SBP_VEL_NED_MSGTYPE = 0x020E;
 
     uint16_t time_week;
     uint32_t time_week_ms;
