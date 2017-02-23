@@ -316,6 +316,8 @@ AP_GPS_SBP::_attempt_state_update()
             state.status = AP_GPS::GPS_OK_FIX_3D_RTK;
         
 
+        // TODO: Should we be taking TOW from VEL_NED? Is this because of
+        // message ordering?
         last_full_update_tow = last_vel_ned.tow;
         last_full_update_cpu_ms = now;
 
