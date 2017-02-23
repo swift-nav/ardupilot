@@ -74,7 +74,7 @@ private:
     static const uint16_t SBP_BASELINE_NED_MSGTYPE   = 0x020C;
     static const uint16_t SBP_VEL_ECEF_MSGTYPE       = 0x020D;
     static const uint16_t SBP_VEL_NED_MSGTYPE        = 0x020E;
-    static const uint16_t SBP_TRACKING_STATE_MSGTYPE = 0x0016;
+    static const uint16_t SBP_TRACKING_STATE_MSGTYPE = 0x0013;
     static const uint16_t SBP_IAR_STATE_MSGTYPE      = 0x0019;
     
 
@@ -134,10 +134,15 @@ private:
     }; // 22 bytes
 
     // Activity and Signal-to-Noise data of a tracking channel on the GPS.
+    struct PACKED sbp_sid_t {
+        uint16_t sat;          //< Constellation-specific satellite identifier
+        uint8_t code;          //< Signal code: 0 = GPSL1CA, 1 = GPSL2CM
+        uint8_t reserved;      //< Reserved for future use
+    };
     struct PACKED sbp_tracking_state_t {
-        uint8_t state;         //< 0 if disabled, 1 if running
-        uint8_t prn;           //< PRN identifier of tracked satellite
-        float cn0;             //< carrier to noise power ratio.
+        uint8_t state;         //< State of channel: 0 = disabled, 1 = running
+        struct sbp_sid_t sid;  //< Satellite ID
+        float cn0;             //< Carrier to noise density (unit: dB-Hz)
     };
 
     // Integer Ambiguity Resolution state - how is the RTK resolution doing?
