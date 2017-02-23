@@ -68,7 +68,7 @@ private:
     static const uint16_t SBP_HEARTBEAT_MSGTYPE      = 0xFFFF;    
     static const uint16_t SBP_GPS_TIME_MSGTYPE       = 0x0102;
     static const uint16_t SBP_DOPS_MSGTYPE           = 0x0208;
-    static const uint16_t SBP_POS_ECEF_MSGTYPE       = 0x0200;
+    static const uint16_t SBP_POS_ECEF_MSGTYPE       = 0x0209;
     static const uint16_t SBP_POS_LLH_MSGTYPE        = 0x0201;
     static const uint16_t SBP_BASELINE_ECEF_MSGTYPE  = 0x0202;
     static const uint16_t SBP_BASELINE_NED_MSGTYPE   = 0x0203;
