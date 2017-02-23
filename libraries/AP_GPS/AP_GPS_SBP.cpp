@@ -217,7 +217,17 @@ AP_GPS_SBP::_sbp_process_message() {
         }
 
         case SBP_DOPS_MSGTYPE:
-            memcpy(&last_dops, parser_state.msg_buff, sizeof(last_dops));
+            struct sbp_dops_t *dops = (struct sbp_dops_t*)parser_state.msg_buff;
+            if (dops->flags == 1 ||
+                dops->flags == 2 ||
+                dops->flags == 3 ||
+                dops->flags == 4) {
+                // flags = 1: Single Point Solution
+                //         2: Differential Code Phase
+                //         3: Float RTK
+                //         4: Fixed RTK
+                last_dops = *dops;
+            } // flags = 0: No Fix
             break;
 
         case SBP_TRACKING_STATE_MSGTYPE:

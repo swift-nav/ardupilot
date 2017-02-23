@@ -718,7 +718,7 @@ void SITL_State::_update_gps_sbp(const struct gps_data *d)
         dops.tdop = 1;
         dops.hdop = 100;
         dops.vdop = 1;
-        dops.flags = 0;
+        dops.flags = 1;
         _sbp_send_message(SBP_DOPS_MSGTYPE, 0x2222, sizeof(dops),
                           (uint8_t*)&dops);
 
