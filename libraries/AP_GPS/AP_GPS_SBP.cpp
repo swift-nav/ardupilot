@@ -188,7 +188,11 @@ AP_GPS_SBP::_sbp_process_message() {
             break;
 
         case SBP_GPS_TIME_MSGTYPE:
-            memcpy(&last_gps_time, parser_state.msg_buff, sizeof(last_gps_time));
+            struct sbp_gps_time_t *gps_time = (struct sbp_gps_time_t*)parser_state.msg_buff;
+            if (gps_time->flags == 1) {
+                // flags = 1: Time source is GNSS PVT solution
+                last_gps_time = *gps_time;
+            } // flags = 0: No Fix
             break;
 
         case SBP_VEL_NED_MSGTYPE:
@@ -199,16 +203,16 @@ AP_GPS_SBP::_sbp_process_message() {
             struct sbp_pos_llh_t *pos_llh = (struct sbp_pos_llh_t*)parser_state.msg_buff;
             // Check solution type.
             if (pos_llh->flags == 1) {
-                // flag = 1: Single Point Solution
+                // flags = 1: Single Point Solution
                 last_pos_llh_spp = *pos_llh;
             } else if (pos_llh->flags == 2 ||
                        pos_llh->flags == 3 ||
                        pos_llh->flags == 4) {
-                // flag = 2: Differential Code Phase
+                // flags = 2: Differential Code Phase
                 //        3: Float RTK
                 //        4: Fixed RTK
                 last_pos_llh_rtk = *pos_llh;
-            } // flag = 0: No Fix
+            } // flags = 0: No Fix
             break;
         }
 

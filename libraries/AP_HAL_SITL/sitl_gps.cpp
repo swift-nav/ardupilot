@@ -677,7 +677,7 @@ void SITL_State::_update_gps_sbp(const struct gps_data *d)
     t.wn = time_week;
     t.tow = time_week_ms;
     t.ns = 0;
-    t.flags = 0;
+    t.flags = 1;
     _sbp_send_message(SBP_GPS_TIME_MSGTYPE, 0x2222, sizeof(t), (uint8_t*)&t);
 
     if (!d->have_lock) {
