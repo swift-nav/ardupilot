@@ -52,7 +52,7 @@ do {                                            \
  # define Info(fmt, args ...)                                               \
 do {                                                                        \
     gcs().send_text(MAV_SEVERITY_INFO, fmt "\n", ## args); \
-} while(0) 
+} while(0)
 #else
  # define Info(fmt, args ...)
 #endif
@@ -96,7 +96,7 @@ AP_GPS_SBP2::inject_data(const uint8_t *data, uint16_t len)
 void
 AP_GPS_SBP2::_sbp_process()
 {
-    uint32_t nleft = port->available(); 
+    uint32_t nleft = port->available();
     while (nleft > 0) {
         nleft--;
         uint8_t temp = port->read();
@@ -213,7 +213,7 @@ AP_GPS_SBP2::_sbp_process_message() {
     logging_log_raw_sbp(parser_state.msg_type, parser_state.sender_id, parser_state.msg_len, parser_state.msg_buff);
 }
 
-int32_t 
+int32_t
 AP_GPS_SBP2::distMod(int32_t tow1_ms, int32_t tow2_ms, int32_t mod) {
     return MIN(abs(tow1_ms - tow2_ms), mod - abs(tow1_ms - tow2_ms));
 }
@@ -303,7 +303,7 @@ AP_GPS_SBP2::_attempt_state_update()
         state.ground_course = wrap_360(degrees(atan2f(state.velocity[1], state.velocity[0])));
 
         state.speed_accuracy        = safe_sqrt(
-                                        powf((float)last_vel_ned.h_accuracy * 1.0e-3f, 2) + 
+                                        powf((float)last_vel_ned.h_accuracy * 1.0e-3f, 2) +
                                         powf((float)last_vel_ned.v_accuracy * 1.0e-3f, 2));
         state.horizontal_accuracy   = (float) last_pos_llh.h_accuracy * 1.0e-3f;
         state.vertical_accuracy     = (float) last_pos_llh.v_accuracy * 1.0e-3f;
@@ -329,6 +329,7 @@ AP_GPS_SBP2::_attempt_state_update()
                 state.status = AP_GPS::GPS_OK_FIX_3D;
                 break;
             case 2:
+            case 6:
                 state.status = AP_GPS::GPS_OK_FIX_3D_DGPS;
                 break;
             case 3:
